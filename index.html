@@ -1,0 +1,120 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="A safe SAP ERP practice simulator for learning common GUI workflows." />
+    <title>SAP Practice Simulator</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <div class="app-shell">
+      <header class="topbar">
+        <div class="brand">
+          <div class="brand-mark">S</div>
+          <div>
+            <strong>SAP Practice</strong>
+            <span>ERP learning simulator</span>
+          </div>
+        </div>
+        <div class="transaction-form">
+          <label for="transaction">Command</label>
+          <input id="transaction" autocomplete="off" placeholder="Enter transaction (e.g. ME23N)" />
+          <button id="run-transaction" type="button">Run</button>
+        </div>
+        <div class="topbar-actions">
+          <button class="icon-button" id="help-button" title="Show simulator help" type="button">?</button>
+          <button class="avatar" title="User menu" type="button">JD</button>
+        </div>
+      </header>
+
+      <div class="workspace">
+        <aside class="sidebar">
+          <div class="sidebar-label">Workspace</div>
+          <nav aria-label="Main navigation">
+            <button class="nav-item active" data-view="overview" type="button"><span>⌂</span> Overview</button>
+            <button class="nav-item" data-view="procurement" type="button"><span>▣</span> Procurement</button>
+            <button class="nav-item" data-view="inventory" type="button"><span>▤</span> Inventory</button>
+            <button class="nav-item" data-view="sales" type="button"><span>◫</span> Sales orders</button>
+          </nav>
+          <div class="sidebar-label favorites-label">Favorites</div>
+          <button class="favorite" data-transaction="ME23N" type="button"><span class="star">★</span> Display purchase order <kbd>ME23N</kbd></button>
+          <button class="favorite" data-transaction="MM03" type="button"><span class="star">★</span> Display material <kbd>MM03</kbd></button>
+          <button class="favorite" data-transaction="VA03" type="button"><span class="star">★</span> Display sales order <kbd>VA03</kbd></button>
+          <div class="sidebar-footer">
+            <span class="status-dot"></span>
+            <span>Practice system</span>
+            <strong>QA1</strong>
+          </div>
+        </aside>
+
+        <main class="content">
+          <div class="breadcrumb"><span>Home</span><span>/</span><strong id="breadcrumb-current">Overview</strong></div>
+          <section class="page-heading">
+            <div>
+              <p class="eyebrow">Good morning, Jordan</p>
+              <h1 id="page-title">ERP command center</h1>
+              <p class="subheading">Practice everyday SAP workflows with sample company data.</p>
+            </div>
+            <div class="system-pill"><span class="status-dot"></span> Connected to QA1 <small>•</small> Client 100</div>
+          </section>
+
+          <section class="metrics" aria-label="Key figures">
+            <article class="metric-card">
+              <div class="metric-icon blue">PO</div>
+              <div><span>Open purchase orders</span><strong>24</strong><small class="positive">↑ 8.3% this week</small></div>
+            </article>
+            <article class="metric-card">
+              <div class="metric-icon amber">IN</div>
+              <div><span>Items below reorder point</span><strong>7</strong><small class="warning">Needs attention</small></div>
+            </article>
+            <article class="metric-card">
+              <div class="metric-icon green">SO</div>
+              <div><span>Orders shipped today</span><strong>38</strong><small class="positive">↑ 12.1% this week</small></div>
+            </article>
+            <article class="metric-card">
+              <div class="metric-icon purple">€</div>
+              <div><span>Spend this month</span><strong>€84.6k</strong><small class="neutral">Across 12 vendors</small></div>
+            </article>
+          </section>
+
+          <section class="content-grid">
+            <article class="panel orders-panel">
+              <div class="panel-heading">
+                <div><h2>Recent purchase orders</h2><p>Use ME23N to practice displaying a document.</p></div>
+                <button class="link-button" data-transaction="ME23N" type="button">Open ME23N →</button>
+              </div>
+              <div class="table-wrap">
+                <table>
+                  <thead><tr><th>PO number</th><th>Vendor</th><th>Document date</th><th>Net value</th><th>Status</th></tr></thead>
+                  <tbody id="orders-body"></tbody>
+                </table>
+              </div>
+              <div class="table-footer"><span id="row-count">Showing 4 of 24 orders</span><button class="plain-button" id="show-all" type="button">View all</button></div>
+            </article>
+
+            <article class="panel activity-panel">
+              <div class="panel-heading"><div><h2>Practice activity</h2><p>Your recent simulator sessions</p></div><button class="more-button" type="button" aria-label="More activity options">•••</button></div>
+              <ul class="activity-list">
+                <li><span class="activity-icon blue">ME</span><div><strong>ME21N</strong><span>Created purchase order</span></div><time>10 min ago</time></li>
+                <li><span class="activity-icon green">MM</span><div><strong>MM03</strong><span>Displayed material master</span></div><time>Yesterday</time></li>
+                <li><span class="activity-icon purple">VA</span><div><strong>VA03</strong><span>Viewed sales order</span></div><time>Yesterday</time></li>
+                <li><span class="activity-icon amber">MIGO</span><div><strong>MIGO</strong><span>Posted goods receipt</span></div><time>Mon</time></li>
+              </ul>
+              <button class="activity-link" id="clear-activity" type="button">Clear activity</button>
+            </article>
+          </section>
+
+          <section class="practice-banner">
+            <div class="banner-icon">✦</div>
+            <div><strong>New to SAP?</strong><span>Start with a guided practice scenario to learn the procure-to-pay process.</span></div>
+            <button id="start-scenario" type="button">Start scenario <span>→</span></button>
+          </section>
+          <p class="disclaimer">This is a fictional training environment. No real SAP system or business data is connected.</p>
+        </main>
+      </div>
+    </div>
+    <div class="toast" id="toast" role="status" aria-live="polite"></div>
+    <script src="app.js"></script>
+  </body>
+</html>
